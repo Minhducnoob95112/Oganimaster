@@ -1,0 +1,103 @@
+﻿@model Oganimaster.Models.TDanhMucSp
+
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Chỉnh sửa thông tin sản phẩm</h4>
+            <p class="card-description">Cập nhật thông tin chi tiết</p>
+
+            <form class="forms-sample" asp-action="SuaSanPham" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <!-- Cột 1 -->
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="MaSp">Mã sản phẩm (Không thể sửa)</label>
+                            <input asp-for="MaSp" class="form-control" readonly />
+                            <span asp-validation-for="MaSp" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="TenSp">Tên sản phẩm (*)</label>
+                            <input asp-for="TenSp" class="form-control" placeholder="Tên sản phẩm" required />
+                            <span asp-validation-for="TenSp" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="GiaNhoNhat">Giá nhỏ nhất</label>
+                            <input asp-for="GiaNhoNhat" type="number" class="form-control" />
+                            <span asp-validation-for="GiaNhoNhat" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="GiaLonNhat">Giá lớn nhất</label>
+                            <input asp-for="GiaLonNhat" type="number" class="form-control" />
+                            <span asp-validation-for="GiaLonNhat" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="CanNang">Cân nặng (kg)</label>
+                            <input asp-for="CanNang" class="form-control" />
+                            <span asp-validation-for="CanNang" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ThoiGianBaoHanh">Bảo hành (tháng)</label>
+                            <input asp-for="ThoiGianBaoHanh" class="form-control" />
+                            <span asp-validation-for="ThoiGianBaoHanh" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Cột 2 -->
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="MaLoai">Loại sản phẩm</label>
+                            <select asp-for="MaLoai" class="form-control" asp-items="ViewBag.MaLoai"></select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MaHangSx">Hãng sản xuất</label>
+                            <select asp-for="MaHangSx" class="form-control" asp-items="ViewBag.MaHangSx"></select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MaNuocSx">Nước sản xuất</label>
+                            <select asp-for="MaNuocSx" class="form-control" asp-items="ViewBag.MaNuocSx"></select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MaChatLieu">Chất liệu</label>
+                            <select asp-for="MaChatLieu" class="form-control" asp-items="ViewBag.MaChatLieu"></select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MaDt">Loại đối tượng</label>
+                            <select asp-for="MaDt" class="form-control" asp-items="ViewBag.MaDt"></select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="AnhDaiDien">Tên file ảnh đại diện</label>
+                            <input asp-for="AnhDaiDien" class="form-control" />
+                            <span asp-validation-for="AnhDaiDien" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="GioiThieuSp">Giới thiệu sản phẩm</label>
+                    <textarea asp-for="GioiThieuSp" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="GioiThieuSp" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-gradient-primary me-2">Lưu thay đổi</button>
+                <a asp-action="DanhMucSanPham" class="btn btn-light">Hủy bỏ</a>
+            </form>
+        </div>
+    </div>
+</div>

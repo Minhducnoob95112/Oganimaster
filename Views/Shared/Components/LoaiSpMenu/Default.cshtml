@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TLoaiSp>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        var getUrl = "https://localhost:7160/api/productapi/" + item.MaLoai?.Trim();
+        <li>
+            <a style="cursor: pointer;" onclick="showProductByCategory('@getUrl')">
+                @item.Loai
+            </a>
+        </li>
+    }
+</ul>
+
+<script>
+    function showProductByCategory(getUrl) {
+        var str = '';
+        $.ajax({
+            type: 'GET',
+            url: getUrl,
+            dataType: 'json',
+            success: function (data) {
+                $.each(data, function (key, val) {
+                    // Xử lý chuỗi ảnh và mã sản phẩm (bỏ khoảng trắng thừa)
+                    var anh = val.anhDaiDien ? val.anhDaiDien.trim() : '';
+                    var maSp = val.maSp ? val.maSp.trim() : '';
+                    var tenSp = val.tenSp ? val.tenSp : '';
+                    
+                    // Định dạng giá tiền chuẩn Việt Nam
+                    var gia = val.giaNhoNhat != null 
+                        ? Number(val.giaNhoNhat).toLocaleString('vi-VN') + ' VNĐ' 
+                        : 'Liên hệ';
+
+                    // Ghép khối HTML thẻ Card sản phẩm theo đúng cấu trúc của _PartialSanPham
+                    str += '<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">';
+                    str += '    <div class="featured__item">';
+                    str += '        <div class="featured__item__pic set-bg" style="background-image: url(\'../Images/' + anh + '\');">';
+                    str += '            <ul class="featured__item__pic__hover">';
+                    str += '                <li><a href="#"><i class="fa fa-heart"></i></a></li>';
+                    str += '                <li><a href="#"><i class="fa fa-retweet"></i></a></li>';
+                    str += '                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>';
+                    str += '            </ul>';
+                    str += '        </div>';
+                    str += '        <div class="featured__item__text">';
+                    str += '            <h6><a href="/Home/ChiTietSanPham?maSp=' + maSp + '">' + tenSp + '</a></h6>';
+                    str += '            <h5>' + gia + '</h5>';
+                    str += '        </div>';
+                    str += '    </div>';
+                    str += '</div>';
+                });
+
+                // Đổ toàn bộ thẻ sản phẩm vừa tạo vào vùng chứa trên trang chủ
+                $('#displayProducts').html(str);
+            },
+            error: function (xhr) {
+                alert('Lỗi tải dữ liệu sản phẩm!');
+            }
+        });
+    }
+</script>

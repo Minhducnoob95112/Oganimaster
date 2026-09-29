@@ -1,0 +1,80 @@
+﻿@model Oganimaster.ViewModels.HomeProductDetailViewModel
+
+@{
+    ViewData["Title"] = Model.danhMucSp.TenSp;
+    Layout = "~/Views/Shared/_LayoutOgani.cshtml";
+}
+
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <!-- Cột ảnh sản phẩm -->
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item" style="border: 1px solid #f2f2f2; border-radius: 4px; padding: 10px;">
+                        <!-- Ảnh đại diện chính -->
+                        <img class="product__details__pic__item--large"
+                             src="@Url.Content("~/Images/" + Model.danhMucSp.AnhDaiDien?.Trim())" 
+                             alt="@Model.danhMucSp.TenSp"
+                             style="width: 100%; height: 400px; object-fit: contain;">
+                    </div>
+
+                    <!-- Danh sách các ảnh chi tiết từ ViewModel (Không dùng ViewBag nữa) -->
+                    <div class="product__details__pic__slider owl-carousel mt-3">
+                        @if (Model.anhSps != null)
+                        {
+                            @foreach (var item in Model.anhSps)
+                            {
+                                <img data-imgbigurl="@Url.Content("~/Images/" + item.TenFileAnh?.Trim())"
+                                     src="@Url.Content("~/Images/" + item.TenFileAnh?.Trim())" 
+                                     alt="" 
+                                     style="height: 100px; object-fit: contain; cursor: pointer; border: 1px solid #ddd; margin-right: 5px;">
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột thông tin chi tiết -->
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3>@Model.danhMucSp.TenSp</h3>
+                    
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <span>(18 đánh giá)</span>
+                    </div>
+
+                    <div class="product__details__price" style="color: #d0011b; font-size: 30px; font-weight: 700;">
+                        @(Model.danhMucSp.GiaNhoNhat.HasValue ? Model.danhMucSp.GiaNhoNhat.Value.ToString("#,##0") + " VNĐ" : "Liên hệ")
+                    </div>
+
+                    <p>@(string.IsNullOrEmpty(Model.danhMucSp.GioiThieuSp) ? "Đang cập nhật giới thiệu cho sản phẩm này." : Model.danhMucSp.GioiThieuSp)</p>
+
+                    <div class="product__details__quantity">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <input type="text" value="1">
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="primary-btn">THÊM VÀO GIỎ</a>
+                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+
+                    <ul>
+                        <li><b>Mã sản phẩm:</b> <span>@Model.danhMucSp.MaSp</span></li>
+                        <li><b>Tình trạng:</b> <span>Còn hàng</span></li>
+                        <li><b>Cân nặng:</b> <span>@(Model.danhMucSp.CanNang.HasValue ? Model.danhMucSp.CanNang.Value + " kg" : "Đang cập nhật")</span></li>
+                        <li><b>Bảo hành:</b> <span>@(Model.danhMucSp.ThoiGianBaoHanh.HasValue ? Model.danhMucSp.ThoiGianBaoHanh.Value + " tháng" : "12 tháng")</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->

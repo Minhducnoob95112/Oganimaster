@@ -1,0 +1,26 @@
+﻿@model Oganimaster.Models.TDanhMucSp
+
+<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+    <div class="featured__item" style="border: 1px solid #ebebeb; border-radius: 5px; overflow: hidden; padding-bottom: 10px;">
+        <div class="featured__item__pic set-bg" 
+             data-setbg="@Url.Content("~/Images/" + Model.AnhDaiDien?.Trim())"
+             style="height: 250px; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; background-color: #fafafa;">
+            <ul class="featured__item__pic__hover">
+                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+            </ul>
+        </div>
+        <div class="featured__item__text" style="padding-top: 15px;">
+            <h6>
+                <a asp-controller="Home" asp-action="ProductDetail" asp-route-maSp="@Model.MaSp?.Trim()"
+                   style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; padding: 0 10px;">
+                    @Model.TenSp
+                </a>
+            </h6>
+            <h5 style="color: #d0011b; font-weight: bold;">
+                @(Model.GiaNhoNhat.HasValue ? Model.GiaNhoNhat.Value.ToString("#,##0") + " VNĐ" : "Liên hệ")
+            </h5>
+        </div>
+    </div>
+</div>

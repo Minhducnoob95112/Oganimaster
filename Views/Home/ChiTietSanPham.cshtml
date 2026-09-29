@@ -1,0 +1,80 @@
+﻿@model Oganimaster.Models.TDanhMucSp
+
+@{
+    ViewData["Title"] = Model.TenSp;
+    Layout = "~/Views/Shared/_LayoutOgani.cshtml";
+}
+
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <!-- Cột hiển thị ảnh sản phẩm -->
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item" style="border: 1px solid #f2f2f2; border-radius: 4px; padding: 10px;">
+                        <!-- Ảnh chính / Ảnh đại diện -->
+                        <img class="product__details__pic__item--large"
+                             src="@Url.Content("~/Images/" + Model.AnhDaiDien?.Trim())" 
+                             alt="@Model.TenSp"
+                             style="width: 100%; height: 400px; object-fit: contain;">
+                    </div>
+
+                    <!-- Danh sách các ảnh chi tiết phụ từ ViewBag -->
+                    <div class="product__details__pic__slider owl-carousel mt-3">
+                        @if (ViewBag.anhSanPham != null)
+                        {
+                            @foreach (var item in (List<Oganimaster.Models.TAnhSp>)ViewBag.anhSanPham)
+                            {
+                                <img data-imgbigurl="@Url.Content("~/Images/" + item.TenFileAnh?.Trim())"
+                                     src="@Url.Content("~/Images/" + item.TenFileAnh?.Trim())" 
+                                     alt="" 
+                                     style="height: 100px; object-fit: contain; cursor: pointer; border: 1px solid #ddd; margin-right: 5px;">
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột thông tin chi tiết -->
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3>@Model.TenSp</h3>
+                    
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <span>(18 đánh giá)</span>
+                    </div>
+
+                    <div class="product__details__price" style="color: #d0011b; font-size: 30px; font-weight: 700;">
+                        @(Model.GiaNhoNhat.HasValue ? Model.GiaNhoNhat.Value.ToString("#,##0") + " VNĐ" : "Liên hệ")
+                    </div>
+
+                    <p>@(string.IsNullOrEmpty(Model.GioiThieuSp) ? "Đang cập nhật giới thiệu cho sản phẩm này." : Model.GioiThieuSp)</p>
+
+                    <div class="product__details__quantity">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <input type="text" value="1">
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="primary-btn">THÊM VÀO GIỎ</a>
+                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+
+                    <ul>
+                        <li><b>Mã sản phẩm:</b> <span>@Model.MaSp</span></li>
+                        <li><b>Tình trạng:</b> <span>Còn hàng</span></li>
+                        <li><b>Cân nặng:</b> <span>@(Model.CanNang.HasValue ? Model.CanNang.Value + " kg" : "Đang cập nhật")</span></li>
+                        <li><b>Bảo hành:</b> <span>@(Model.ThoiGianBaoHanh.HasValue ? Model.ThoiGianBaoHanh.Value + " tháng" : "12 tháng")</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
